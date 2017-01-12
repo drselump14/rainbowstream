@@ -186,6 +186,7 @@ def draw(t, keyword=None, humanize=True, noti=False, fil=[], ig=[]):
     tid = t['id']
     text = t['text']
     quoted_status = ''
+    quoted_status_id = ''
     screen_name = t['user']['screen_name']
     name = t['user']['name']
     created_at = t['created_at']
@@ -212,15 +213,6 @@ def draw(t, keyword=None, humanize=True, noti=False, fil=[], ig=[]):
             c['events'].append(t)
             notify_retweet(t)
             return
-    except:
-        pass
-
-    # Pull quoted status
-    try:
-        quoted_status = '  ++++++++++++ \n' +\
-                '   ' + t['quoted_status']['user']['name'] + ' @' + t['quoted_status']['user']['screen_name'] + '\n ' +\
-            '  ' + t['quoted_status']['text'] + '\n   +++++++++++ \n'
-        quoted_status = unescape(quoted_status)
     except:
         pass
 
@@ -269,6 +261,23 @@ def draw(t, keyword=None, humanize=True, noti=False, fil=[], ig=[]):
         rid = len(c['tweet_dict']) - 1
     else:
         rid = c['tweet_dict'].index(tid)
+
+    # Pull quoted status
+    try:
+        quoted_status_id = t['quoted_status']['id']
+        if quoted_status_id not in c['tweet_dict']:
+            c['tweet_dict'].append(quoted_status_id)
+            qid = len(c['tweet_dict']) - 1
+        else:
+            qid = c['tweet_dict'].index(quoted_status_id)
+
+        quoted_status = '  ++++++++++++ \n' +\
+                '   ' + t['quoted_status']['user']['name'] + ' @' + t['quoted_status']['user']['screen_name'] + '\n ' +\
+            '   [' + str(qid) + '] ' + t['quoted_status']['text'] + '\n   +++++++++++ \n'
+        quoted_status = unescape(quoted_status)
+    except:
+        pass
+
 
     # Format info
     name = cycle_color(name)
