@@ -764,7 +764,8 @@ def urlopen():
         else:
             for url in urls:
                 expanded_url = url['expanded_url']
-                webbrowser.open(expanded_url)
+                # webbrowser.open(expanded_url)
+                call(['w3m', m['media_url']])
     except:
         debug_option()
         printNicely(red('Sorry I can\'t open url in this tweet.'))
