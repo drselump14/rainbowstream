@@ -53,6 +53,8 @@
     "PHOTO_VIEWER_COMMAND": "feh",
     // Set command for video viewer, default is mpv
     "VIDEO_VIEWER_COMMAND": "mpv",
+    // Set command for open link, default is w3m
+    "BROWSER": "w3m",
     // Stream config
     "USER_DOMAIN" : "userstream.twitter.com",
     "PUBLIC_DOMAIN" : "stream.twitter.com",
